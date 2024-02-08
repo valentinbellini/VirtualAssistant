@@ -42,18 +42,18 @@ Una vez activada la escucha, el asistente puede recibir varios comandos para eje
 - `Obtener Dirección IP`: "IP address" o "Obtener IP"
 - `Abrir Carpeta del Sistema Operativo`: "Abrir carpeta {nombre de la carpeta}"
 
-## Notas
-
-- Algunas funciones aún están en desarrollo y se indicará si no están implementadas.
-- Ante cualquier problema, el asistente proporcionará un mensaje de error y solicitará repetir el comando.
-
-
 ## .ENV
 
 En el archivo .env deberá definir las siguientes variables de entorno
 
-USER= {USER}
-BOTNAME= {YOUR_BOTNAME}
-API_KEY_WEATHER = {YOUR_API_KEY_WEATHER}
-NEWS_API_KEY = {YOUR_NEWS_API_KEY}
-COINMARKETCAP_API_KEY = {YOUR_COINMARKETCAP_API_KEY}
+- USER= {USER}
+- BOTNAME= {YOUR_BOTNAME}
+- API_KEY_WEATHER = {YOUR_API_KEY_WEATHER}
+- NEWS_API_KEY = {YOUR_NEWS_API_KEY}
+- COINMARKETCAP_API_KEY = {YOUR_COINMARKETCAP_API_KEY}
+
+
+## Notas
+
+- Algunas funciones aún están en desarrollo y se indicará si no están implementadas.
+- Ante cualquier problema, el asistente proporcionará un mensaje de error y solicitará repetir el comando.
