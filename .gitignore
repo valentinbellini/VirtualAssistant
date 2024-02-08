@@ -1,0 +1,35 @@
+# Virtual environment
+venv/
+VA_env/
+
+# Compiled Python files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# macOS
+.DS_Store
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Archivos de configuración específicos del sistema operativo
+*.iml
+*.pyc
+*.pyo
+*.dll
+*.exe
+*.obj
+*.o
+*.a
+*.lib
+*.so
+*.dylib
+
+# misc
+.env
+notas.txt
