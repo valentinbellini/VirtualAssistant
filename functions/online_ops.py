@@ -125,7 +125,7 @@ def get_latest_news(country='ar', language='es', category='general', num_article
         return news_headlines
 
 def get_crypto(top_n=5):
-    BASE_URL = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest"
+    BASE_URL_MKT = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest"
     parameters = {
         'start': '1',
         'limit': str(top_n),  # Ahora se utiliza la variable top_n para determinar la cantidad de criptomonedas a consultar
@@ -136,7 +136,7 @@ def get_crypto(top_n=5):
         'X-CMC_PRO_API_KEY': COINMARKETCAP_API_KEY,
     }
     try:
-        response = requests.get(BASE_URL, headers=headers, params=parameters)
+        response = requests.get(BASE_URL_MKT, headers=headers, params=parameters)
         data = response.json()
         if response.status_code == 200:
             top_cryptos = data['data'][:top_n]

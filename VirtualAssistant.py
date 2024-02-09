@@ -67,104 +67,96 @@ class VirtualAssistant:
     # asi realizar la acción correspondiente.
     def manejar_comando(self, comando):
         try:
-              
-            # REPRODUCIR MUSICA
             if 'reproducir música' in comando:
                 self.hablar("Lo siento, la función de reproducción de música aún no está implementada.")
-            
-            # BUSCAR EN WIKIPEDIA
             elif 'wikipedia' in comando:
-                self.hablar("¿Que quiere buscar en Wikipedia, señor?")
-                query = self.escuchar()
-                if 'cancelar' in query or 'detente' in query:
-                    self.hablar("De acuerdo, cancelo busqueda señor")
-                else: 
-                    results = search_on_wikipedia(query, LANGUAGE_RESTRICTION)
-                    self.hablar(f'De acuerdo con Wikipedia: {results}.')
-            
-            # BUSCAR EN GOOGLE
-            elif 'Google' in comando:
-                self.hablar("¿Que quiere buscar en Google, señor?")
-                query = self.escuchar()
-                if 'cancelar' in query or 'detente' in query:
-                    self.hablar("De acuerdo, cancelo busqueda señor")
-                else: 
-                    results = search_on_google(query)
-                    self.hablar(f'{results}.')
-                    self.hablar('Mostrare los resultados en la terminal de comandos')
-                    print(query)
-            
-            # OBTENER CLIMA
+                self.buscar_en_wikipedia()
+            elif 'google' in comando:
+                self.buscar_en_google()
             elif 'clima' in comando:
-                self.hablar(choice(opening_phrases))
-                ciudad = comando.split('clima')[-1].strip()
-                print(f'Ciudad: {ciudad}')
-                mensaje = obtener_clima(ciudad)
-                self.hablar(mensaje)
-            
-            # BUSCAR EN YOUTUBE
+                self.obtener_clima(comando)
             elif any(palabra_clave in comando for palabra_clave in kw_youtube_video):
-                self.hablar('¿Qué desea ver en Youtube, señor?')
-                query = self.escuchar()
-                if 'cancelar' in query or 'detente' in query:
-                    self.hablar("De acuerdo, cancelo busqueda señor")
-                else: 
-                    play_on_youtube(query)
-            
-            # INFORME CRYPTO
+                self.buscar_en_youtube()
             elif any(palabra_clave in comando for palabra_clave in kw_crypto_report):
-                self.hablar(choice(opening_phrases))            
-                generate_crypto_report()
-            
-            # ULTIMAS NOTICIAS
+                self.generar_informe_cripto()
             elif 'noticias' in comando:
-                self.hablar("Te dejo por escrito los ultimos 5 titulares.")
-                latest_news = get_latest_news()
-                for i, headline in enumerate(latest_news, start=1):
-                    print(f"{i}. {headline}")
-            
-            # ABRIR CAMARA
+                self.mostrar_ultimas_noticias()
             elif 'abrir cámara' in comando:
                 self.windows_ops.open_camera()
-            
-            # OBTENER IP
             elif 'ip address' in comando or 'obtener ip' in comando:
-                ip_address = find_my_ip()
-                self.hablar(f'Su dirección IP es: {ip_address}')
-                print(f'Dirección IP: {ip_address}')
-            
-            # ABRIR CARPETA DEL SISTEMA OPERATIVO
+                self.obtener_direccion_ip()
             elif 'abrir carpeta' in comando:
-                # Divide el comando en dos partes en la primera aparición de 'abrir carpeta '.
-                # Luego, toma el segundo elemento de la lista resultante.
-                folder = comando.split('abrir carpeta ', 1)[-1]
-
-                # Convierte la cadena a minúsculas para manejar entradas mixtas.
-                folder = folder.lower()
-
-                # Llama a la función open_folder con la carpeta obtenida.
-                self.windows_ops.open_folder(folder)
-                
-                # Un uso correcto del comando seria "abrir carpeta descargas"
-            
+                self.abrir_carpeta(comando)
             elif 'opciones' in comando:
-                self.hablar("Estas son algunas de las cosas que puedes pedirme: ")
-                self.hablar("""
-                            Buscar en google o wikipedia.
-                            Obtener direccion IP.
-                            Abrir alguna carpeta de tu disco local.
-                            Pedirme las ultimas noticias.
-                            Generar un informe cripto.
-                            Buscar un video en youtube.
-                            Pedirme el clima en alguna localidad.
-                            """)
-            
-            # SI NO HAY COINCIDENCIAS
+                self.mostrar_opciones()
             else:
                 self.hablar("No entendí el comando. ¿Puedes repetirlo?")
-                
         except Exception as e:
             print(f"Error no manejado: {e}")
             self.hablar("Ocurrió un error al procesar el comando.")
 
+    def buscar_en_wikipedia(self):
+        self.hablar("¿Qué quiere buscar en Wikipedia, señor?")
+        query = self.escuchar()
+        if any(cancelar_palabra in query for cancelar_palabra in ['cancelar', 'detente']):
+            self.hablar("De acuerdo, cancelo búsqueda señor")
+        else:
+            results = search_on_wikipedia(query, LANGUAGE_RESTRICTION)
+            self.hablar(f'De acuerdo con Wikipedia: {results}.')
 
+    def buscar_en_google(self):
+        self.hablar("¿Qué quiere buscar en Google, señor?")
+        query = self.escuchar()
+        if any(cancelar_palabra in query for cancelar_palabra in ['cancelar', 'detente']):
+            self.hablar("De acuerdo, cancelo búsqueda señor")
+        else:
+            results = search_on_google(query)
+            self.hablar(f'{results}.')
+            self.hablar('Mostraré los resultados en la terminal de comandos')
+            print(query)
+
+    def obtener_clima(self, comando):
+        self.hablar(choice(opening_phrases))
+        ciudad = comando.split('clima')[-1].strip()
+        print(f'Ciudad: {ciudad}')
+        mensaje = obtener_clima(ciudad)
+        self.hablar(mensaje)
+
+    def buscar_en_youtube(self):
+        self.hablar('¿Qué desea ver en Youtube, señor?')
+        query = self.escuchar()
+        if any(cancelar_palabra in query for cancelar_palabra in ['cancelar', 'detente']):
+            self.hablar("De acuerdo, cancelo búsqueda señor")
+        else:
+            play_on_youtube(query)
+
+    def generar_informe_cripto(self):
+        self.hablar(choice(opening_phrases))
+        generate_crypto_report()
+
+    def mostrar_ultimas_noticias(self):
+        self.hablar("Te dejo por escrito los últimos 5 titulares.")
+        latest_news = get_latest_news()
+        for i, headline in enumerate(latest_news, start=1):
+            print(f"{i}. {headline}")
+
+    def obtener_direccion_ip(self):
+        ip_address = find_my_ip()
+        self.hablar(f'Su dirección IP es: {ip_address}')
+        print(f'Dirección IP: {ip_address}')
+
+    def abrir_carpeta(self, comando):
+        folder = comando.split('abrir carpeta ', 1)[-1].lower()
+        self.windows_ops.open_folder(folder)
+
+    def mostrar_opciones(self):
+        self.hablar("Estas son algunas de las cosas que puedes pedirme: ")
+        self.hablar("""
+                    Buscar en google o wikipedia.
+                    Obtener dirección IP.
+                    Abrir alguna carpeta de tu disco local.
+                    Pedirme las últimas noticias.
+                    Generar un informe cripto.
+                    Buscar un video en youtube.
+                    Pedirme el clima en alguna localidad.
+                    """)
