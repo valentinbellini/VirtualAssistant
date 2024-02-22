@@ -5,18 +5,12 @@ Este proyecto implementa un asistente virtual simple en Python con un objetivo u
 ## Configuración del Entorno Virtual e instalación
 
 #### Cree un entorno virtual:
-``
- python -m venv venv
-``
+``python -m venv venv``
 #### Active el entorno virtual:
 - En Windows:
-    ``    
-    .\venv\Scripts\activate
-    ``
+    ``.\venv\Scripts\activate``
 - En Linux/Mac:
-    ``
-    source venv/bin/activate
-    ``
+    ``source venv/bin/activate``
 #### Instale las dependencias:
 ``
 pip install -r requirements.txt
