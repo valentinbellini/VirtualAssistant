@@ -246,3 +246,6 @@ def generate_crypto_report():
     img.show()
 
     return img_path
+
+crypto = get_crypto(10)
+print(crypto)
